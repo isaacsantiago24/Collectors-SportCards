@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user.first_name}} {{user.last_name}}</title>
+</head>
+<body>
+    <a href="/collectors">Back to all collectors</a>
+
+    <h1>Info about {{user.first_name}} </h1>
+    <p>Email: {{user.email}}</p>
+    <p>Favorite sport: {{user.favorite_sport}}</p>
+    <p>Number of cards owned: {{user.number_of_cards_owned}}</p>
+
+    <br>
+    <h2>Favorite cards owned:</h2>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Brand</th>
+                <th scope="col">Athlete</th>
+                <th scope="col">Sport</th>
+                <th scope="col">Team Name</th>
+                <th scope="col">Release Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for card in user.cards.all %}
+            <tr>
+                <td>{{card.brand}}</td>
+                <td>{{card.player_name}}</td>
+                <td>{{card.sport}}</td>
+                <td>{{card.team_name}}</td>
+                <td>{{card.release_date}}</td>
+                <td>
+                    <a href="/collectors/{{user.id}}/cards/{{card.id}}/delete">Delete Card</a> //
+                    <a href="/cards/{{card.id}}/edit">Edit card</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- validations errors -->
+    {% for error in messages %}
+        <p style="color: red;">{{error}}</p>
+    {% endfor %}
+        
+        <h2>Add a sports card:</h2>
+
+        <form action="/collectors/{{user.id}}/cards/create" method="POST">
+
+            {% csrf_token %}
+
+            <div class="form-group col-sm-8">
+                <label>Brand</label>
+                <input type="text" class="form-control" name="brand">
+            </div>
+            <div class="form-group col-sm-8">
+                <label>Player Name</label>
+                <input type="text" class="form-control" name="player_name">
+            </div>
+            <div class="form-group col-sm-8">
+                <label>Team Name</label>
+                <input type="text" class="form-control" name="team_name">
+            </div>
+            <div class="form-group col-sm-8">
+                <label>Sport</label>
+                <input type="text" class="form-control" name="sport">
+            </div>
+            <div class="form-group col-sm-8">
+                <label>Release Date</label>
+                <input type="date" class="form-control" name="release_date">
+            </div>
+        
+        
+        
+            <button class="btn btn-primary">Submit</button>
+        
+        
+        </form>
+</body>
+</html>

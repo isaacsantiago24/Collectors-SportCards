@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Collectors</title>
+</head>
+<body>
+
+    <h1>All Collectors</h1>
+    <a href="collectors/new">Add a new collector</a>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Email</th>
+                <th scope="col">Favorite Sport</th>
+                <th scope="col">Cards owned</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td><a href="/collectors/{{user.id}}">{{user.first_name}}</a></td>
+                <td>{{user.last_name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.favorite_sport}}</td>
+                <td>{{user.number_of_cards_owned}}</td>
+                <td>
+                    <a href="/collectors/{{user.id}}/delete">Delete Collector</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</body>
+</html>
